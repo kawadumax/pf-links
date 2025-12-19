@@ -3,51 +3,117 @@ type LinkItem = {
   href: string;
   description: string;
   tags: string[];
-  category: string;
+  note?: string;
+  extraLinks?: { label: string; href: string }[];
 };
 
-const links: LinkItem[] = [
+type Category = {
+  title: string;
+  description: string;
+  items: LinkItem[];
+};
+
+const categories: Category[] = [
   {
-    title: "GitHub リポジトリ",
-    href: "https://github.com/yourname",
-    description: "主要なコードやサンプルを公開しています。",
-    tags: ["code", "oss", "actions"],
-    category: "Project",
+    title: "ポートフォリオ・IT系",
+    description:
+      "職務・個人問わず公開可能なものを整理しました。コード非公開の案件は成果物や概要のみの記載です。",
+    items: [
+      {
+        title: "GitHub アカウント",
+        href: "https://github.com/kawadumax",
+        description: "公開リポジトリと OSS での活動一覧。",
+        tags: ["GitHub", "OSS", "Code"],
+      },
+      {
+        title: "ADHD 向けタスク管理アプリ (Win/Android)",
+        href: "https://kawadumax.github.io/decopon/",
+        description:
+          "ADHD ユーザーのためのクロスプラットフォームタスク管理。TauriによるWin/Android両方に提供。バックエンドとしてRust(axum)を採用。",
+        tags: ["React", "Tauri", "AWS", "Android", "Windows"],
+        extraLinks: [
+          { label: "GitHub", href: "https://github.com/kawadumax/decopon" },
+          {
+            label: "日本語概要",
+            href: "https://github.com/kawadumax/decopon/blob/dev/documents/README.jp.md",
+          },
+        ],
+      },
+      {
+        title: "社の公式ホームページ",
+        href: "https://gina-reneos.com/",
+        description: "WordPress で独自テーマを制作し、公開運用中。",
+        tags: ["WordPress", "Theme", "Production"],
+        note: "コード非公開",
+      },
+      {
+        title: "React シンセサイザ Web アプリ",
+        href: "https://web-audio-synthesizer.vercel.app/",
+        description:
+          "WebAudio API を用いた FM シンセ。SVG とシャドウで UI を構築し、画像素材をほぼ未使用で表現。WASMによるDSPも実装。",
+        tags: ["React", "WebAudio", "UI", "Demo"],
+        extraLinks: [
+          {
+            label: "GitHub",
+            href: "https://github.com/kawadumax/WebAudioSynthesizer",
+          },
+        ],
+      },
+      {
+        title: "障害福祉サービス向けタイピング練習",
+        href: "https://train-data-entry.vercel.app/",
+        description:
+          "就労移行支援の訓練プログラムとして構築し、日次で利用されているタイピングアプリ。",
+        tags: ["Next.js", "Vercel", "jotai", "Faker"],
+        note: "コード非公開",
+      },
+      {
+        title: "教材用技術記事 (例示)",
+        href: "https://zenn.dev/kawaxumax/articles/4d7545127fe817",
+        description:
+          "職業指導員として制作した教材の参考例として、個人で執筆した技術記事を掲載。",
+        tags: ["Zenn", "CI/CD", "ML", "DeFi"],
+        extraLinks: [
+          {
+            label: "Python×CircleCI×Heroku",
+            href: "https://zenn.dev/kawaxumax/articles/4d7545127fe817",
+          },
+          {
+            label: "機械学習×仮想通貨予測",
+            href: "https://zenn.dev/kawaxumax/articles/4c930efd511f75",
+          },
+          {
+            label: "自動リバランス考察",
+            href: "https://zenn.dev/kawaxumax/articles/c0e3640027fa05",
+          },
+        ],
+      },
+    ],
   },
   {
-    title: "技術ブログ",
-    href: "https://blog.example.com",
-    description: "設計メモやトラブルシュート記事をまとめています。",
-    tags: ["architecture", "testing", "observability"],
-    category: "Article",
-  },
-  {
-    title: "デモサイト",
-    href: "https://demo.example.com",
-    description: "稼働中のフロントエンドデモ。UI/UXの雰囲気を確認できます。",
-    tags: ["frontend", "react", "vite"],
-    category: "Demo",
-  },
-  {
-    title: "スライド資料",
-    href: "https://speakerdeck.com/yourname",
-    description: "登壇・社内勉強会のスライドをまとめています。",
-    tags: ["slides", "conference", "lt"],
-    category: "Slide",
-  },
-  {
-    title: "デザインモック",
-    href: "https://www.figma.com/@yourname",
-    description: "UIの叩き台やデザインシステムのメモ。",
-    tags: ["figma", "ux", "prototype"],
-    category: "Design",
-  },
-  {
-    title: "連絡先",
-    href: "mailto:you@example.com",
-    description: "コラボやフィードバックの連絡はこちらから。",
-    tags: ["contact", "feedback"],
-    category: "Info",
+    title: "ポートフォリオ・音楽系",
+    description:
+      "音楽制作・音響監督・フィールドレコーディングなどの実績を抜粋しています。",
+    items: [
+      {
+        title: "制作 CD (個人)",
+        href: "https://utsounds.booth.pm/",
+        description: "個人名義で制作した音源を頒布。",
+        tags: ["Music", "Booth", "CD"],
+      },
+      {
+        title: "インディー映画『雨女』他 音響監督",
+        href: "https://www.youtube.com/watch?v=KqglIy0MhNY&pp=ygUW6JCx6YeO5a2d5bm4IOOAgOmbqOWlsw%3D%3D",
+        description: "映像コンテンツの音響ディレクションおよび BGM 制作。",
+        tags: ["Sound", "Film", "Direction"],
+      },
+      {
+        title: "制作 CD (依頼案件)",
+        href: "https://www.dlsite.com/home/work/=/product_id/RJ234654.html",
+        description: "依頼案件として制作した音源を頒布。",
+        tags: ["Commission", "BGM", "DLsite"],
+      },
+    ],
   },
 ];
 
@@ -62,7 +128,7 @@ function App() {
         <div className="navbar-end gap-2 px-4">
           <a
             className="btn btn-ghost btn-sm"
-            href="https://github.com/yourname/pf-links"
+            href="https://github.com/kawadumax/pf-links"
             target="_blank"
             rel="noreferrer"
           >
@@ -70,7 +136,7 @@ function App() {
           </a>
           <a
             className="btn btn-primary btn-sm"
-            href="https://yourname.github.io/pf-links/"
+            href="https://kawadumax.github.io/pf-links/"
             target="_blank"
             rel="noreferrer"
           >
@@ -81,12 +147,7 @@ function App() {
 
       <main className="mx-auto max-w-6xl px-4 py-10 space-y-8">
         <section className="rounded-box border border-base-300 bg-base-100 p-6 shadow-sm">
-          <p className="text-sm text-base-content/70">
-            ポートフォリオのリンク集
-          </p>
-          <h1 className="mt-1 text-3xl font-bold">
-            アウトプットへの入口をまとめました
-          </h1>
+          <h1 className="text-3xl font-bold">制作物リンク集</h1>
           <p className="mt-2 text-base text-base-content/70">
             プロダクト、記事、発表資料などへのアクセスをワンクリックで行えるよう整理しています。
           </p>
@@ -101,47 +162,93 @@ function App() {
           </div>
         </section>
 
-        <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-          {links.map((item) => (
-            <article
-              key={item.title}
-              className="card border border-base-300 bg-base-100 shadow-sm transition-shadow duration-200 hover:shadow-lg"
-            >
-              <div className="card-body gap-3">
-                <div className="flex items-start justify-between gap-3">
-                  <div className="space-y-1">
-                    <h2 className="card-title text-lg leading-tight">
-                      {item.title}
-                    </h2>
-                    <p className="text-sm text-base-content/70">
-                      {item.description}
-                    </p>
-                  </div>
-                  <span className="badge badge-outline">{item.category}</span>
-                </div>
-
-                <div className="flex flex-wrap gap-2">
-                  {item.tags.map((tag) => (
-                    <span key={tag} className="badge badge-sm badge-neutral">
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-
-                <div className="card-actions justify-end">
-                  <a
-                    href={item.href}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="btn btn-primary btn-sm"
-                  >
-                    開く
-                  </a>
-                </div>
+        {categories.map((category) => (
+          <section
+            key={category.title}
+            className="space-y-4 rounded-box border border-base-300 bg-base-100 p-6 shadow-sm"
+          >
+            <div className="flex items-start justify-between gap-3">
+              <div className="space-y-1">
+                <h2 className="text-2xl font-bold">{category.title}</h2>
+                <p className="text-sm text-base-content/70">
+                  {category.description}
+                </p>
               </div>
-            </article>
-          ))}
-        </section>
+              <span className="badge badge-outline">
+                {category.items.length}件
+              </span>
+            </div>
+
+            <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+              {category.items.map((item) => (
+                <article
+                  key={item.title}
+                  className="card border border-base-300/80 bg-base-200/80 shadow-sm backdrop-blur transition-all duration-200 hover:-translate-y-0.5 hover:border-primary/60 hover:shadow-lg"
+                >
+                  <div className="card-body gap-3">
+                    <div className="space-y-1">
+                      <h3 className="card-title text-lg leading-tight">
+                        {item.title}
+                      </h3>
+                      <p className="text-sm text-base-content/70">
+                        {item.description}
+                      </p>
+                      {item.note ? (
+                        <p className="text-xs text-warning">{item.note}</p>
+                      ) : null}
+                    </div>
+
+                    <div className="flex flex-wrap gap-2">
+                      {item.tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className="badge badge-sm badge-neutral"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+
+                    {item.extraLinks ? (
+                      <div className="space-y-2">
+                        {item.extraLinks.map((link) => (
+                          <div
+                            key={link.href}
+                            className="rounded-lg bg-base-300/70 px-3 py-2"
+                          >
+                            <p className="text-xs font-semibold text-base-content/70">
+                              {link.label}
+                            </p>
+                            <a
+                              href={link.href}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="link link-primary inline-flex items-center gap-1 break-all text-sm"
+                            >
+                              <span>{link.href}</span>
+                              <span aria-hidden>↗</span>
+                            </a>
+                          </div>
+                        ))}
+                      </div>
+                    ) : null}
+
+                    <div className="card-actions justify-end">
+                      <a
+                        href={item.href}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="btn btn-primary btn-sm"
+                      >
+                        開く
+                      </a>
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
+        ))}
       </main>
     </div>
   );
